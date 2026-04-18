@@ -14,12 +14,13 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-// connectDB().then(() => {
-//     console.log('Database connection established successfully');
-// }).catch((err) => {
-//     console.error('Failed to connect to the database:', err);
-//     process.exit(1); // Exit the process with an error code
-// });
+connectDB().then(() => {
+    console.log('Database connection established successfully');
+}).catch((err) => {
+    res.sendStatus(500).send({ message: 'Failed to connect to the database', error: err.message });
+    console.error('Failed to connect to the database:', err);
+    process.exit(1); // Exit the process with an error code
+});
 
 const allowedOrigins = [
     "http://localhost:5173",
@@ -51,17 +52,8 @@ app.use('/', (req, res) => {
     res.send('Welcome to the API');
 });
 
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
-const startServer = async () => {
-    await connectDB();
-
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
-};
-
-startServer();
 
