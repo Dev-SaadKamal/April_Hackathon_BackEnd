@@ -81,8 +81,12 @@ const UserController = {
             return res.status(500).send(sendResponse(500, null, 'Internal server error', error.message));
         }
     },
-    getUser: (req, res) => {
+    getUser: async (req, res) => {
+        const user = await UserModel.findById(req.userId).select("-password");
+
+        console.log("USER:", user);
         res.json({ user: req.user });
+        console.log("USER:", req.user);
     },
     logout: async (req, res) => {
         return res
