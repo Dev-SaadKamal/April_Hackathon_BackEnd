@@ -14,7 +14,12 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-connectDB();
+connectDB().then(() => {
+    console.log('Database connection established successfully');
+}).catch((err) => {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1); // Exit the process with an error code
+});
 
 const allowedOrigins = [
     "http://localhost:5173",
