@@ -4,9 +4,15 @@ const cors = require('cors');
 const dns = require("dns");
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
-const signupRoute = require('./routes/signuproute');
-const loginRoute = require('./routes/loginroute');
-const uploadRoute = require('./routes/uploadroute');
+
+
+
+const authRoutes = require('./routes/authRoutes');
+const requestRoutes = require('./routes/requestRoutes');
+const userRoutes = require('./routes/userRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -45,9 +51,14 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/signup', signupRoute);
-app.use('/login', loginRoute);
-app.use('/upload', uploadRoute);
+
+
+app.use('/api/auth', authRoutes);
+app.use('/api/requests', requestRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/', (req, res) => {
     res.send('Welcome to the API');
 });
