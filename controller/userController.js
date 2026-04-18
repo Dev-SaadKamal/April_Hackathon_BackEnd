@@ -33,7 +33,7 @@ const UserController = {
             return res.status(200)
                 .cookie('token', token, {
                     httpOnly: true,
-                    secure: false,
+                    secure: true,
                     sameSite: "none",
                     maxAge: 24 * 60 * 60 * 1000
                 })
@@ -64,7 +64,7 @@ const UserController = {
             return res.status(200)
                 .cookie('token', token, {
                     httpOnly: true,
-                    secure: false,
+                    secure: true,
                     sameSite: "none",
                     maxAge: 24 * 60 * 60 * 1000
                 })
@@ -85,8 +85,7 @@ const UserController = {
         const user = await UserModel.findById(req.userId).select("-password");
 
         console.log("USER:", user);
-        res.json({ user: req.user });
-        console.log("USER:", req.user);
+        res.json({ user: user });
     },
     logout: async (req, res) => {
         return res
