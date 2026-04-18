@@ -30,9 +30,12 @@ const UserController = {
             if (!token) {
                 return res.status(500).send(sendResponse(500, null, 'Failed to generate token'));
             }
-            return res.status(201)
+            return res.status(200)
                 .cookie('token', token, {
                     httpOnly: true,
+                    secure: false,
+                    sameSite: "lax",
+                    maxAge: 24 * 60 * 60 * 1000
                 })
                 .send(sendResponse(201, null, 'User created successfully'));
         } catch (error) {
@@ -65,7 +68,14 @@ const UserController = {
                     sameSite: "lax",
                     maxAge: 24 * 60 * 60 * 1000
                 })
-                .send(sendResponse(200, null, 'Login successful'));
+                .send(sendResponse(200, {
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        email: user.email
+                    },
+                    token: token
+                }, 'Login successful'));
         } catch (error) {
             console.error('Error during login:', error);
             return res.status(500).send(sendResponse(500, null, 'Internal server error', error.message));
