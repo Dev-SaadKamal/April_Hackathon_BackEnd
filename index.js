@@ -25,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 app.use('/upload', uploadRoute);
-
+app.use('/', (req, res) => {
+    res.send('Welcome to the API');
+});
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
