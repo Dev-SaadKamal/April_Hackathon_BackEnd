@@ -14,6 +14,8 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+connectDB();
+
 const allowedOrigins = [
     "http://localhost:5173",
     "https://aprilfinalhackathon.netlify.app"
@@ -43,10 +45,8 @@ app.use('/upload', uploadRoute);
 app.use('/', (req, res) => {
     res.send('Welcome to the API');
 });
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}).catch((err) => {
-    console.error('Failed to connect to MongoDB:', err);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
+
