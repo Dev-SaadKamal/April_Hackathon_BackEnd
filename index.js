@@ -30,7 +30,8 @@ connectDB().then(() => {
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://aprilfinalhackathon.netlify.app"
+    "https://april-hackathon-front-end.vercel.app"
+
 ];
 
 app.use(
@@ -44,6 +45,7 @@ app.use(
                 return callback(new Error("Not allowed by CORS"));
             }
         },
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true
     })
 );
