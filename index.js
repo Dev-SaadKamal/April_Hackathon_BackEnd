@@ -30,8 +30,7 @@ connectDB().then(() => {
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://april-hackathon-front-end.vercel.app"
-
+"https://help-hubai.vercel.app"
 ];
 
 app.use(
